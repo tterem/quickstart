@@ -63,7 +63,7 @@ public class CoffeeResource {
      */
     @Path("/{id}")
     @GET
-    public Response coffeeDetail(@PathParam int id) {
+    public Response coffeeDetail(@PathParam("id") int id) {
         final Long invocationNumber = counter.getAndIncrement();
 
         maybeFail(String.format("CoffeeResource#coffees() invocation #%d failed", invocationNumber));
@@ -88,7 +88,7 @@ public class CoffeeResource {
      */
     @Path("/{id}/availability")
     @GET
-    public Response availability(@PathParam int id) {
+    public Response availability(@PathParam("id") int id) {
         final Long invocationNumber = counter.getAndIncrement();
 
         Coffee coffee = coffeeRepository.getCoffeeById(id);
@@ -115,7 +115,7 @@ public class CoffeeResource {
     @Path("/{id}/recommendations")
     @Timeout(250)
     @Fallback(fallbackMethod = "fallbackRecommendations")
-    public List<Coffee> recommendations(@PathParam int id) {
+    public List<Coffee> recommendations(@PathParam("id") int id) {
         long started = System.currentTimeMillis();
         final long invocationNumber = counter.getAndIncrement();
 
